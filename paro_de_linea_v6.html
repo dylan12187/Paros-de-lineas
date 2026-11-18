@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Registro de Paro de Línea</title>
+<style>
+:root{--bg:#e6e8ec;--tb:#fff;--tbt:#1a1d23;--bd:#cfd3da;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--tb:#1d2127;--tbt:#e8eaee;--bd:#383e48}}
+:root[data-theme="dark"]{--bg:#14171c;--tb:#1d2127;--tbt:#e8eaee;--bd:#383e48}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font:14px/1.3 Arial,Helvetica,sans-serif}
+.tb{max-width:820px;margin:0 auto;padding:10px 8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--tbt)}
+.tb span{flex:1;font-size:12px;opacity:.7;min-width:160px}
+button{font:inherit;border:1px solid var(--bd);background:var(--tb);color:var(--tbt);padding:7px 12px;border-radius:6px;cursor:pointer}
+button.p{background:#0b5cab;border-color:#0b5cab;color:#fff}
+.pg{max-width:820px;margin:0 auto 20px;background:#fff;color:#000;border:1px solid #000}
+.hd{display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;padding:8px 10px;gap:6px}
+.logo{font:italic 900 30px Arial,sans-serif;letter-spacing:-2px}
+.ti{text-align:center;font-weight:700;font-size:16px}
+.rt{text-align:right;font-size:11px;font-weight:700}
+.bar{background:#c8c8c8;text-align:center;font-weight:700;font-size:12px;padding:3px 6px;border-top:1px solid #000}
+.r{display:flex;flex-wrap:nowrap;border-top:1px solid #000}
+.c{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 5px;flex:var(--w,1) 1 0;min-width:0;border-left:1px solid #000;padding:2px 5px 3px}
+.r>.c:first-child{border-left:0}
+.c>label{flex:none;max-width:100%;font-size:10px;font-weight:700;color:#222}
+.c input[type=text],.c input[type=date],.c input[type=time],.c input[type=number]{flex:1 1 40px;min-width:0;border:0;background:transparent;font:15px "Segoe Print","Bradley Hand","Comic Sans MS",cursive;color:#0a2a8a;padding:1px 0;outline:0}
+.c.s{display:block}.c.s input{width:100%}
+.c:focus-within{background:#fffbe0}
+.in{margin:0 22px;border:1px solid #000;border-top:0}.in .r:first-child{border-top:0}
+.u>label{text-decoration:underline}
+.ro{font-weight:700}
+.o{display:flex;flex-wrap:wrap;gap:4px 14px;padding:2px 0}
+.k{display:flex!important;align-items:center;gap:4px;font-weight:400!important;font-size:12px!important}
+.k input{width:16px;height:16px;margin:0}
+.note{font-size:10px;padding:3px 6px;border-top:1px solid #000;color:#222}
+.sg{display:block;width:100%;height:70px;touch-action:none;border-bottom:1px solid #000}
+.sb{font-size:10px;padding:1px 6px;margin:2px 0}
+.ft{font-size:10px;font-weight:700;text-align:right;padding:6px 8px;border-top:1px solid #000}
+@media print{
+body{background:#fff}.tb{display:none}.pg{border:0;margin:0;max-width:none}.sb{display:none}.c:focus-within{background:none}
+}
+[hidden]{display:none!important}
+.cal{max-width:820px;margin:0 auto;padding:10px 8px;color:var(--tbt)}
+.ch{display:flex;align-items:center;justify-content:space-between}.ch h2{margin:0;font-size:20px}
+.gr{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:10px 0}
+.dn{text-align:center;font-size:12px;opacity:.7}
+.dc{min-height:56px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:5px;background:var(--tb);border:1px solid var(--bd);border-radius:8px;color:var(--tbt)}
+.dc.e{border:0;background:none}.dc.td{border:2px solid #0b5cab}.dc.sl{background:#0b5cab;color:#fff}
+.dc b{align-self:flex-end;background:#c0392b;color:#fff;border-radius:10px;font-size:11px;padding:1px 7px}
+.mu{opacity:.7;font-size:13px}
+.dh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.dh h3{margin:0}
+.it{background:var(--tb);border:1px solid var(--bd);border-radius:8px;padding:9px 11px;margin-top:8px;cursor:pointer}
+.c textarea{flex:1 1 40px;min-width:0;border:0;background:transparent;font:15px "Segoe Print","Bradley Hand","Comic Sans MS",cursive;color:#0a2a8a;padding:1px 0;outline:0;resize:none;overflow:hidden;line-height:1.25;height:22px}
+.tn{margin-top:16px}.tn h3{margin:0;font-size:15px}
+.ac{background:#1e8e3e;color:#fff;border-radius:10px;font-size:11px;padding:1px 8px;margin-left:6px}
+@media print{#CAL{display:none}}
+</style>
+</head>
+<body>
+<div id="CAL" class="cal"><div class="ch"><button onclick="nav(-1)">‹</button><h2 id="mt"></h2><button onclick="nav(1)">›</button></div><div class="mu" id="ms"></div><div class="gr" id="grid"></div><div id="day"></div></div>
+<div id="V2" hidden><div class="tb"><button onclick="back()">← Calendario</button><span id="ttl"></span><button class="p" onclick="window.print()">Imprimir / PDF</button><button id="delb" onclick="del()">Eliminar paro</button></div>
+<div class="tb" style="padding-top:0"><span>Para enviar este paro: usa el botón Compartir de arriba y copia la liga; ya apunta a este paro.</span></div>
+<div class="pg" id="P">
+ <div class="hd"><div class="logo">flex</div><div class="ti">Registro de Paro de Línea</div><div class="rt">Enero 06, 2026<br>Pág. 1 de 3</div></div>
+</div></div>
+<script>
+var CB="chk:Calidad|Procesos|Producto|Pruebas|Manufactura|Mantenimiento de Equipos|Otros";
+var R=[
+["B","(Campos llenos por persona que levanta el Paro de Línea)"],
+[["fecha","Fecha:","d",155],["orig","Nombre del originador del paro:","t",275],["cliente","Cliente:","t",252]],
+[["turno","Turno:","chk1:1°|2°|3°",117],["linea","Línea:","t",77],["folio","No. de Folio del sistema Flex Audit Control:","t",236],["ens","Ensamble:","t",252]],
+[["hparo","Hora de Paro de línea o estación:","h",234],["harr","Hora de arranque de línea o estación:","h",196],["tiempo","Tiempo total sin producir (minutos):","ro",252]],
+[["desc","Descripción detallada de la discrepancia o defecto encontrado:","t",682]],
+[["what","What (Qué)?","t",682]],[["where","Where (Dónde)?","t",682]],[["who","Who (Quién)?","t",682]],[["when","When (Cuándo)?","t",682]],[["why","Why (Por qué)?","t",682]],[["how","How (Cómo)?","t",682]],
+[["many","How Many (Cuánto)?","t",500],["otros","Otros:","t",182]],
+[["parte","No. de Parte:","t",192],["docrev","No. de Documento y Revisión:","t",308],["serie","No. de serie:","t",182]],
+[["area","Área o estación del Paro de Línea:","t",347],["cont","No. Contenedor:","t",335]],
+[["asiste","Área que Asiste al Paro de Línea:","chk:Calidad|Procesos|Producto|Pruebas|Manufactura|Mantenimiento de Equipos|Otros",682]],
+["B","(Contestar la Acción de Contención por parte del Responsable del área o estación de la discrepancia)"],
+["N","Importante: En caso de aplicar Purga del Material o defecto de proveedor a nivel RAW Material baja el BX-CAL-72"],
+[["accion","Acción de Contención:","t",400],["fcomp","Fecha Compromiso:","d",282]],
+[["resp","Responsable de la acción de contención:","t",682]],
+[["inspec","Cantidad de Material o Unidades inspeccionadas:","n",350],["defect","Agregue la cantidad de materiales o unidades con más defectos:","n",332]],
+[[null,"Purgas por estación","L",75],["oba","OBA","n",77],["bkd","BKD","n",76],["smt","SMT","n",100],["emb","Embarques","n",89],["rep","Reparaciones","n",121],["potros","Otros","n",144]],
+[["tarj","Cantidad de tarjetas reparadas:","n",350],["scrap","Cantidad de scrap generado:","n",332]],
+["B","(Realizar Análisis de Causa Raíz por los involucrados / CFT)"],
+["I",[[["p1","1.- Por qué?:","t",1]],[["r1","Respuesta:","t",1]],[["p2","2.- Por qué?:","t",1]],[["r2","Respuesta:","t",1]],[["p3","3.- Por qué?:","t",1]],[["r3","Respuesta:","t",1]],[["p4","4.- Por qué?:","t",1]],[["r4","Respuesta:","t",1]],[["p5","5.- Por qué?:","t",1]],[["r5","Respuesta:","t",1]]]],
+[["raiz","Causa Raíz:","tu",682]],
+[["ac1","Acción Correctiva 1:","t",682]],[["ac1r","Responsable:","t",373],["ac1f","Fecha Compromiso:","d",309]],
+[["ac2","Acción Correctiva 2:","t",682]],[["ac2r","Responsable:","t",373],["ac2f","Fecha Compromiso:","d",309]],
+[["acs","Acción Sistémica-Preventiva:","t",682]],[["acsr","Responsable:","t",373],["acsf","Fecha Compromiso:","d",309]],
+["B","(Campos llenos por responsable de pruebas o responsable de calidad)"],
+[["cob","¿Existe cobertura para el defecto en?:","chk:ACI|ICT|Equipo de Prueba Funcional|Inspección Final|OBA",682]],
+[["pfun","Especifique real Prueba:","t",682]],
+[["car","¿Aplica CAR?","chk1:Sí|No",250],["ncar","Agregue No. de CAR:","t",432]],
+["B","(Campos llenos por personal involucrado en este paro de línea, debe de tener las firmas de área responsable, calidad, procesos)"],
+["N","Autorizaciones:"],
+["S",["Responsable de Calidad","Responsable de Procesos","Responsable del Área o Estación"]],
+["S",["Responsable de SSyMA","Responsable de RoHS"]]
+];
+var P=document.getElementById("P"),K="paro_v3",D={},DB={r:{}},cur=null,sj=0,cv=[],Y,M,SEL,DBH=null,CAN=true,CR={},SENT={},busy=false,again=false,lastEdit=0,WANT=(location.hash.match(/^#p-([A-Za-z0-9]+)$/)||[])[1];
+function st(t){var e=document.getElementById("ttl");if(e)e.textContent=t}
+function save(){lastEdit=Date.now();if(cur&&DB.r[cur])DB.r[cur].d=D;if(DBH){st("Guardando…");clearTimeout(save.t);save.t=setTimeout(flush,600)}else{try{localStorage.setItem(K,JSON.stringify(DB))}catch(e){}}}
+async function flush(){if(!cur||!DBH||!CAN)return;if(busy){again=true;return}busy=true;var id=cur,dd=D;
+ try{var ref=DBH.doc("paros/"+id);if(!CR[id]){await ref.set({d:dd});CR[id]=1;SENT=Object.assign({},dd)}else{var df={},n=0;Object.keys(dd).forEach(function(k){if(dd[k]!==SENT[k]){df[k]=dd[k];n++}});if(n){await ref.update({d:df});SENT=Object.assign({},dd)}}
+ st("Guardado ✓")}catch(e){st("No se pudo guardar")}
+ busy=false;if(again){again=false;flush()}}
+function lock(){var x=tOf(D);document.querySelectorAll("#P input,#P textarea").forEach(function(e){e.disabled=!CAN||(e.dataset.g=="turno"&&x!=0)});document.querySelectorAll("canvas.sg").forEach(function(c){c.style.pointerEvents=CAN?"":"none"});document.querySelectorAll(".sb,#delb").forEach(function(b){b.hidden=!CAN})}
+function cell(c){var i=c[0],l=c[1],t=c[2],w=c[3]||1,h='<div class="c'+(t=="tu"?' u':'')+'" style="--w:'+w+'"><label>'+l+'</label>';
+ if(t=="L"){}
+ else if(t.indexOf("chk")==0){var m=t.split(":"),o=m[1].split("|");
+  h+='<div class="o" style="flex:1 1 auto">'+o.map(function(x){return'<label class="k"><input type="checkbox" data-g="'+i+'" data-k="'+i+':'+x+'"'+(m[0]=="chk1"?' data-s="1"':'')+'>'+x+'</label>'}).join("")+'</div>'}
+ else if(t=="t"||t=="tu")h+='<textarea id="'+i+'" rows="1"></textarea>';
+ else{var ty={t:"text",tu:"text",ro:"text",d:"date",h:"time",n:"number"}[t];
+  h+='<input id="'+i+'" type="'+ty+'"'+(t=="ro"?' readonly class="ro"':'')+(t=="n"?' inputmode="numeric" min="0"':'')+'>'}
+ return h+'</div>'}
+R.forEach(function(r){var h="";
+ if(r[0]=="B")h='<div class="bar">'+r[1]+'</div>';
+ else if(r[0]=="N")h='<div class="note">'+r[1]+'</div>';
+ else if(r[0]=="I")h='<div class="in">'+r[1].map(function(x){return'<div class="r">'+x.map(cell).join("")+'</div>'}).join("")+'</div>';
+ else if(r[0]=="S")h='<div class="r">'+r[1].map(function(n){var j=sj++;return'<div class="c s"><canvas class="sg" data-j="'+j+'"></canvas><button type="button" class="sb" onclick="clr('+j+')">Borrar firma</button><input id="sn'+j+'" type="text" placeholder="Nombre"><label style="text-align:center">Nombre y Firma<br>'+n+'</label></div>'}).join("")+'</div>';
+ else h='<div class="r">'+r.map(cell).join("")+'</div>';
+ P.insertAdjacentHTML("beforeend",h)});
+P.insertAdjacentHTML("beforeend",'<div class="ft">Una vez validado y firmado por Calidad la línea será liberada.</div>');
+function v(i){return document.getElementById(i).value}
+function calc(){var a=v("hparo"),b=v("harr");if(a&&b){var x=a.split(":"),y=b.split(":"),m=(+y[0]*60+ +y[1])-(+x[0]*60+ +x[1]);if(m<0)m+=1440;document.getElementById("tiempo").value=m;D.tiempo=m}}
+P.addEventListener("input",function(e){var t=e.target;if(t.tagName=="TEXTAREA")fit(t);if(t.id){D[t.id]=t.value;if(t.id=="hparo"||t.id=="harr")calc();save()}});
+P.addEventListener("change",function(e){var t=e.target;if(!t.dataset||!t.dataset.k)return;
+ if(t.dataset.s&&t.checked)document.querySelectorAll('[data-g="'+t.dataset.g+'"]').forEach(function(o){if(o!==t){o.checked=false;D[o.dataset.k]=false}});
+ D[t.dataset.k]=t.checked;save()});
+function load(){document.querySelectorAll("#P input,#P textarea").forEach(function(el){if(el.type=="checkbox")el.checked=false;else el.value=""});
+ Object.keys(D).forEach(function(k){var el=document.getElementById(k);if(el&&k.indexOf("sig")!=0)el.value=D[k]});
+ document.querySelectorAll("#P [data-k]").forEach(function(c){c.checked=!!D[c.dataset.k]});fitAll()}
+function initSig(){document.querySelectorAll("canvas.sg").forEach(function(c){var j=c.dataset.j,r=c.getBoundingClientRect(),dp=window.devicePixelRatio||1;c.width=r.width*dp;c.height=r.height*dp;var x=c.getContext("2d");x.scale(dp,dp);x.lineWidth=2;x.lineCap="round";x.strokeStyle="#0a2a8a";cv[j]=c;
+ if(D["sig"+j]){var im=new Image();im.onload=function(){x.drawImage(im,0,0,r.width,r.height)};im.src=D["sig"+j]}
+ var dr=false;function p(e){var b=c.getBoundingClientRect();return[e.clientX-b.left,e.clientY-b.top]}
+ c.onpointerdown=function(e){dr=true;c.setPointerCapture(e.pointerId);var q=p(e);x.beginPath();x.moveTo(q[0],q[1])};
+ c.onpointermove=function(e){if(!dr)return;var q=p(e);x.lineTo(q[0],q[1]);x.stroke()};
+ c.onpointerup=function(){if(!dr)return;dr=false;try{D["sig"+j]=c.toDataURL();save()}catch(e){}}})}
+function clr(j){var c=cv[j];c.getContext("2d").clearRect(0,0,c.width,c.height);D["sig"+j]="";save()}
+var MN="Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Septiembre,Octubre,Noviembre,Diciembre".split(","),DN="Dom,Lun,Mar,Mié,Jue,Vie,Sáb".split(",");
+function ds(y,m,d){return y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0")}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function byDay(){var o={};Object.keys(DB.r).forEach(function(id){var dd=DB.r[id].d||{},f=dd.dturno||dd.fecha;if(f)(o[f]=o[f]||[]).push(id)});return o}
+function render(){var b=byDay(),h="",first=new Date(Y,M,1).getDay(),n=new Date(Y,M+1,0).getDate(),t=new Date(),ts=ds(t.getFullYear(),t.getMonth(),t.getDate()),tot=0,mins=0;
+ DN.forEach(function(x){h+='<div class="dn">'+x+'</div>'});
+ for(var i=0;i<first;i++)h+='<div class="dc e"></div>';
+ for(var d=1;d<=n;d++){var k=ds(Y,M,d),a=b[k]||[];tot+=a.length;a.forEach(function(id){mins+=+DB.r[id].d.tiempo||0});
+  h+='<button class="dc'+(k==ts?' td':'')+(k==SEL?' sl':'')+'" onclick="pick(\''+k+'\')"><span>'+d+'</span>'+(a.length?'<b>'+a.length+'</b>':'')+'</button>'}
+ document.getElementById("grid").innerHTML=h;
+ document.getElementById("mt").textContent=MN[M]+" "+Y;
+ document.getElementById("ms").textContent="Paros del mes: "+tot+" · Tiempo sin producir: "+mins+" min";
+ day()}
+var TH=["","Turno 1 · 7:00 am – 3:00 pm","Turno 2 · 3:00 pm – 11:00 pm","Turno 3 · 11:00 pm – 7:00 am"];
+function tOf(d){return d["turno:1°"]?1:d["turno:2°"]?2:d["turno:3°"]?3:0}
+function act(){var n=new Date(),h=n.getHours(),t,dt=new Date(n);if(h>=7&&h<15)t=1;else if(h>=15&&h<23)t=2;else{t=3;if(h<7)dt.setDate(dt.getDate()-1)}return{t:t,k:ds(dt.getFullYear(),dt.getMonth(),dt.getDate())}}
+function fit(e){e.style.height="auto";e.style.height=(e.scrollHeight+2)+"px"}
+function fitAll(){document.querySelectorAll("#P textarea").forEach(fit)}
+function item(id){var d=DB.r[id].d;return '<div class="it" onclick="openRec(\''+id+'\')"><div><b>'+esc(d.hparo||"--:--")+'</b> · Línea '+esc(d.linea||"-")+' · '+esc(d.cliente||"")+'</div><div class="mu">'+esc(d.what||d.desc||"Sin descripción")+(d.tiempo?' · '+esc(d.tiempo)+' min':'')+'</div></div>'}
+function day(){var el=document.getElementById("day");if(!SEL){el.innerHTML='<p class="mu">Toca un día para ver sus turnos.</p>';return}
+ var a=(byDay()[SEL]||[]).slice(),p=SEL.split("-"),A=act(),h='<div class="dh"><h3>'+(+p[2])+' de '+MN[+p[1]-1]+' '+p[0]+'</h3></div>';
+ a.sort(function(x,y){return (DB.r[x].d.hparo||"")<(DB.r[y].d.hparo||"")?-1:1});
+ for(var t=1;t<=3;t++){var L=a.filter(function(id){return tOf(DB.r[id].d)==t}),on=CAN&&A.k==SEL&&A.t==t;
+  h+='<div class="tn"><div class="dh"><h3>'+TH[t]+(on?'<span class="ac">Activo</span>':' 🔒')+'</h3>'+(on?'<button class="p" onclick="add('+t+')">+ Agregar paro</button>':'')+'</div>'+(L.length?L.map(item).join(""):'<p class="mu">Sin paros en este turno.</p>')+'</div>'}
+ var o=a.filter(function(id){return tOf(DB.r[id].d)==0});
+ if(o.length)h+='<div class="tn"><h3>Sin turno</h3>'+o.map(item).join("")+'</div>';
+ el.innerHTML=h}
+function pick(k){SEL=k;render()}
+function nav(n){M+=n;if(M<0){M=11;Y--}if(M>11){M=0;Y++}render()}
+function show(f){document.getElementById("CAL").hidden=f;document.getElementById("V2").hidden=!f}
+function openRec(id){cur=id;D=DB.r[id].d;SENT=Object.assign({},D);show(true);load();initSig();calc();lock();st(DBH?(CAN?"Compartido · se guarda solo":"Solo lectura"):"Guardado en este dispositivo");location.hash="p-"+id;window.scrollTo(0,0)}
+function add(t){var A=act(),n=new Date();if(!CAN||A.k!=SEL||A.t!=t)return;var id=Date.now().toString(36),dd={fecha:ds(n.getFullYear(),n.getMonth(),n.getDate()),dturno:SEL,hparo:("0"+n.getHours()).slice(-2)+":"+("0"+n.getMinutes()).slice(-2)};dd["turno:"+t+"°"]=true;DB.r[id]={d:dd};openRec(id);save()}
+function back(){if(cur&&!D.fecha){D.fecha=SEL;save()}if(DBH&&cur){clearTimeout(save.t);flush()}var f=D.dturno||D.fecha;cur=null;location.hash="";if(f){var p=f.split("-");Y=+p[0];M=+p[1]-1;SEL=f}show(false);render()}
+function del(){if(!confirm("¿Eliminar este paro de línea?"))return;var id=cur,f=D.dturno||D.fecha;cur=null;delete DB.r[id];if(DBH){clearTimeout(save.t);delete CR[id];DBH.doc("paros/"+id).delete().catch(function(){})}else save();D={fecha:f};back()}
+var T=new Date();Y=T.getFullYear();M=T.getMonth();SEL=ds(Y,M,T.getDate());render();
+window.addEventListener("beforeprint",fitAll);window.addEventListener("resize",fitAll);setInterval(function(){if(!cur)day()},60000);
+window.addEventListener("hashchange",function(){var m=location.hash.match(/^#p-([A-Za-z0-9]+)$/);if(m&&m[1]!=cur&&DB.r[m[1]])openRec(m[1])});
+(async function(){
+ try{if(window.claude&&claude.use){DBH=await claude.use("db");var u=await claude.use("user");if(u&&u.can){var w=u.can("data.write");if(w&&w.then)w=await w;CAN=w!==false}}}catch(e){DBH=null}
+ if(DBH){DBH.collection("paros").onSnapshot(function(sn){var r={};sn.docs.forEach(function(d){var x=d.data()||{};r[d.id]={d:JSON.parse(JSON.stringify(x.d||{}))};CR[d.id]=1});
+  if(cur){if(Date.now()-lastEdit>2500&&!busy&&r[cur]){DB.r=r;if(JSON.stringify(r[cur].d)!==JSON.stringify(D)){D=r[cur].d;SENT=Object.assign({},D);load();initSig();calc();lock()}}else{r[cur]={d:D};DB.r=r}}
+  else DB.r=r;
+  if(WANT&&DB.r[WANT]){var w2=WANT;WANT=null;openRec(w2)}
+  if(!cur)render()},function(){st("Sin conexión")})}
+ else{try{DB=JSON.parse(localStorage.getItem(K)||'{"r":{}}')}catch(e){}
+  if(WANT&&DB.r[WANT]){var w3=WANT;WANT=null;openRec(w3)}else render()}
+})();
+</script>
+</body>
+</html>
